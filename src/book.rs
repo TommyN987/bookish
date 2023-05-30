@@ -5,6 +5,7 @@ struct Book {
     title: String,
     content: String,
     sorted_words: Vec<(String, i32)>,
+    word_count: i32,
 }
 
 impl Book {
@@ -12,6 +13,7 @@ impl Book {
         Self {
             title,
             sorted_words: sort_words(&content),
+            word_count: content.split_whitespace().count() as i32,
             content,
         }
     }
@@ -45,6 +47,14 @@ fn sort_words(content: &String) -> Vec<(String, i32)> {
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn test_word_count () {
+        let book = Book::new(
+            "title".to_string(), 
+            "Lorem lorem lorem lorem lorem lorem lorem Ipsum Ipsum Ipsum Ipsum dummy, dummy. Hamilton, hamilton, hamilton, bla im alone hamilton, hamilton. Tommy tommy, tommy".to_string());
+        assert_eq!(book.word_count, 24)
+    }
 
     #[test]
     fn test_sort_words_single_word() {
