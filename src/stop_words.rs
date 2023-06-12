@@ -153,26 +153,7 @@ lazy_static! {
     };
 }
 
-pub fn filter_stop_words(content: &str) -> Vec<String> {
-    content
-        .split_whitespace()
-        .map(|word| {
-            word.chars()
-                .filter(|ch| ch.is_alphabetic())
-                .collect::<String>()
-                .to_lowercase()
-        })
-        .filter(|word| !STOP_WORDS.contains(&word.as_str()))
-        .collect()
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn filter_test() {
-        let content = "Tommy, and Katika are in love";
-        assert_eq!(vec!["tommy", "katika", "love"], filter_stop_words(&content))
-    }
+pub fn is_stopword(word: &str) -> bool {
+    let word = word.to_lowercase();
+    STOP_WORDS.contains(word.as_str())
 }

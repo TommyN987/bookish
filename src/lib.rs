@@ -1,3 +1,4 @@
+pub mod analytics;
 pub mod book;
 pub mod stop_words;
 
